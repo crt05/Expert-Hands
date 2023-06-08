@@ -1,28 +1,19 @@
 import Cita from "../models/cita.js";
+import Proveedor from "../models/proveedor.js";
 
-export const renderCitaForm = (req, res) => res.render("cita/new-cita");
+export const renderCitaForm = async (req, res) => {
+  const proveedores = await Proveedor.find().populate("user").lean();
+  console.log(proveedores);
+  res.render("citas/new-cita", {
+    proveedores,
+  });
+};
 
 export const createNewCita = async (req, res) => {
-  const { titulo, descripcion, fecha,estado, proveedor } = req.body;
-  const errors = [];
-  if (!titulo) {
-    errors.push({ text: "Por favor escriba el titulo." });
-  }
-  if (!descripcion) {
-    errors.push({ text: "Por favor escriba la descripcion del servicio" });
-  }
-  if (errors.length > 0)
-    return res.render("cita/new-cita", {
-      errors,
-      title,
-      description,
-      fecha,
-      estado,
-    });
-
-  const newCita = new Cita({ titulo, descripcion, fecha, estado});
+  console.log(req.body);
+  const newCita = new Cita(req.body);
   newCita.user = req.user.id;
-  newCita.proveedor = req.proveedor.id;
+  // newCita.proveedor = req.proveedor.id;
   await newCita.save();
   req.flash("success_msg", "Cita Agendada correctamente");
   res.redirect("/citas");
@@ -30,8 +21,19 @@ export const createNewCita = async (req, res) => {
 
 export const renderCitas = async (req, res) => {
   const citas = await Cita.find({ user: req.user.id })
+    .populate({
+      path: "proveedor",
+      populate: {
+        path: "user",
+        model: "User",
+      },
+    })
+    .populate("user")
     .sort({ date: "desc" })
     .lean();
+
+  console.log(citas);
+
   res.render("citas/all-citas", { citas });
 };
 
@@ -45,8 +47,13 @@ export const renderEditForm = async (req, res) => {
 };
 
 export const updateCita = async (req, res) => {
-  const { title, description, fecha, estado } = req.body;
-  await Cita.findByIdAndUpdate(req.params.id, { titulo, descripcion, fecha, estado });
+  const { titulo, descripcion, fecha, estado } = req.body;
+  await Cita.findByIdAndUpdate(req.params.id, {
+    titulo,
+    descripcion,
+    fecha,
+    estado,
+  });
   req.flash("success_msg", "Cita actualizada correctamente");
   res.redirect("/citas");
 };

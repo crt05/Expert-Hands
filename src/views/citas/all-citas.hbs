@@ -1,16 +1,18 @@
 <div class="row">
-  {{#each notes}}
+  {{#each citas}}
   <div class="col-md-3">
     <div class="card">
       <div class="card-body">
         <h4 class="card-title d-flex justify-content-between align-items-center">
-          {{ title }} <a href="/notes/edit/{{_id}}"><i class="fas fa-edit"></i></a>
+          {{ fecha }} <a href="/citas/edit/{{_id}}"><i class="fas fa-edit"></i></a>
         </h4>
-        <p>{{ description }} </p>
+        <p>{{ detalles}} </p>
+        <p>Estado: {{ estado }} </p>
+        <p>Proveedor: {{ proveedor.user.name }} </p>
         <!-- DELETE REQUEST -->
-        <form action="/notes/delete/{{_id}}?_method=DELETE" method="POST">
+        <form action="/citas/delete/{{_id}}?_method=DELETE" method="POST">
           <input type="hidden" name="_method" value="DELETE">
-          <button type="submit" class="btn btn-danger btn-block btn-sm">Delete</button>
+          <button type="submit" class="btn btn-danger btn-block btn-sm">Eliminar</button>
         </form>
       </div>
     </div>
@@ -20,7 +22,7 @@
     <div class="card-body">
       <h1>Bienvenido {{user.name}}</h1>
       <p clsss="lead">No tienes ninguna cita creada.</p>
-      <a href="/notes/add" class="btn btn-success btn-block">Crear cita!</a>
+      <a href="/citas/add" class="btn btn-success btn-block">Crear cita!</a>
     </div>
   </div>
   {{/each}}

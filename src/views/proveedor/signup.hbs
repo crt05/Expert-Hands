@@ -7,7 +7,7 @@
         </h4>
       </div>
       <div class="card-body">
-        <form action="/auth/signup" method="POST">
+        <form action="/proveedor/signup" method="POST">
           <div class="mb-3">
             <label for="name">Nombre:</label>
             <input
@@ -48,25 +48,13 @@
               value="{{confirm_password}}"
             />
           </div>
-          <div class="mb-3">
-            <label for="passswore">Tipo de Usuario:</label>
-            <label for="">
-              Cliente
-              <input type="radio" name="type" value="user" />
-            </label>
-
-            <label>
-              Proveedor
-              <input type="radio" name="type" value="proveedor" />
-            </label>
-          </div>
           <button class="btn btn-success btn-block">
             Registrate
           </button>
         </form>
       </div>
       <p class="text-center">¿Ya tienes una cuenta?
-        <a href="/auth/signin" class="text-info">Iniciar Sesión</a></p>
+        <a href="/proveedor/signin" class="text-info">Iniciar Sesión</a></p>
     </div>
   </div>
 </div>

@@ -4,6 +4,8 @@ import session from "express-session";
 import methodOverride from "method-override";
 import flash from "connect-flash";
 import passport from "passport";
+//import passportp from "passport";
+//import passport from "proveedor-passport";
 import morgan from "morgan";
 import MongoStore from "connect-mongo";
 import { dirname, join } from "path";
@@ -14,7 +16,11 @@ import { MONGODB_URI, PORT } from "./config.js";
 import indexRoutes from "./routes/index.routes.js";
 import notesRoutes from "./routes/notes.routes.js";
 import userRoutes from "./routes/auth.routes.js";
+import citasRoutes from "./routes/citas.routes.js";
+import proveedorRouter from "./routes/proveedor.routes.js";
+
 import "./config/passport.js";
+//import "./config/proveedor-passport.js";
 
 // Initializations
 const app = express();
@@ -63,6 +69,8 @@ app.use((req, res, next) => {
 app.use(indexRoutes);
 app.use(userRoutes);
 app.use(notesRoutes);
+app.use(citasRoutes);
+app.use(proveedorRouter);
 
 // static files
 app.use(express.static(join(__dirname, "public")));

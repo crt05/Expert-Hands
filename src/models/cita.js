@@ -2,34 +2,30 @@ import mongoose from "mongoose";
 
 const CitaSchema = new mongoose.Schema(
   {
-    titulo: {
-      type: String,
-      required: true,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
-    descripcion: {
+    proveedor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Proveedor",
+    },
+    detalles: {
       type: String,
       required: true,
     },
     fecha: {
-        type: date,
-        required: true,
+      type: "date",
+      required: true,
     },
     estado: {
-        type: String,
-        required: true,
-    },
-    user: {
       type: String,
       required: true,
     },
-    proveedor: {
-        type: String,
-        required: true,
-      },
   },
   {
     timestamps: true,
   }
 );
 
-export default mongoose.model("Note", NoteSchema);
+export default mongoose.model("Cita", CitaSchema);

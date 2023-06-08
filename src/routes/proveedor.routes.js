@@ -1,14 +1,15 @@
 import { Router } from "express";
 import {
-    renderSignUpForm,
-    signup,
-    renderSigninForm,
-    signin,
-    logout,
-  } from "../controllers/auth.controllers.js";
-  
-  const router = Router();
-  // Routes
+  renderSignUpForm,
+  signup,
+  renderSigninForm,
+  signin,
+  logout,
+} from "../controllers/proveedor.controllers.js";
+
+const router = Router();
+
+// Routes
 router.get("/proveedor/signup", renderSignUpForm);
 
 router.post("/proveedor/signup", signup);
